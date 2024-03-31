@@ -14,7 +14,7 @@ async function loadDoc() {
     generateimg()
 }
 async function generateimg(){
-    console.log(nameArray[0].data)
+    cardsprint.innerHTML=``
     for ( objects of nameArray[0].data) {
     const response = await fetch(`${URL2}${objects}`);
     const cardData = await response.json();
