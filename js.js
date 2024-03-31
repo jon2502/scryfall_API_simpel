@@ -13,12 +13,10 @@ async function loadDoc() {
     generateimg(jsonData)
 }
 async function generateimg(Data){
-    console.log(Data)
     cardsprint.innerHTML=``
     for ( objects of Data.data) {
     const response = await fetch(`${URL2}${objects}`);
     const cardData = await response.json();
-    console.log(cardData)
     if ('card_faces' in cardData){
             const cards = document.createElement('div')
             cards.classList.add('card')
@@ -37,13 +35,6 @@ async function generateimg(Data){
             cardsprint.appendChild(cards)
         }
     }
-    cardinfo = document.querySelectorAll('.card')
-    cardinfo.forEach(info=>{
-        info.addEventListener('click', function(){
-            console.log('click')
-            console.log(this.id)
-        })
-    })
     setflip()
 }
 
