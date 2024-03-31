@@ -22,8 +22,8 @@ async function generateimg(){
             const cards = document.createElement('div')
             cards.classList.add('card')
             cards.innerHTML=`<div class="doublefacedcard">
-                <img class="backSide" src=${cardData.card_faces[1].image_uris.normal}>
                 <img class="frontFace" src=${cardData.card_faces[0].image_uris.normal}>
+                <img class="backSide" src=${cardData.card_faces[1].image_uris.normal}>
             </div><button class="flipbtn">flip</button>`
             cardsprint.appendChild(cards)
         } else {

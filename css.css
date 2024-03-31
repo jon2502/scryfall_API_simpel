@@ -1,20 +1,39 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
 #input{
-    margin-bottom: 5vh;
+    margin-bottom: 2.5vh;
 }
 
 #cardsprint{
     display: grid;
-    grid-template-columns: repeat(5, 20vw);
+    margin: auto;
+    grid-template-columns: repeat(5, 18vw);
 }
 
 .card{
     position: relative;
-    height: 50vh;
+    margin: 5px;
 }
 
-.frontFace,.backSide{
+.doublefacedcard{
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition:transform .5s;
+    transform-origin: center;
+}
+
+.doublefacedcard.flip{
+    transform: rotateY(180deg);
+}
+
+.frontFace, .backSide{
     position: absolute;
     backface-visibility: hidden;
+}
+.backSide{
+    transform: rotateY(180deg);
 }
 
 .flipbtn{
@@ -31,5 +50,5 @@
     cursor: pointer;
 }
 img{
-    width: 80%;
+    width: 100%;
 }
