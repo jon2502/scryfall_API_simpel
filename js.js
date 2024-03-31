@@ -10,31 +10,41 @@ print.addEventListener("click", loadDoc);
 async function loadDoc() {
     const response = await fetch(`${URL1}${send.value}`);
     const jsonData = await response.json();
-    nameArray.push(jsonData)
-    generateimg()
+    generateimg(jsonData)
 }
-async function generateimg(){
+async function generateimg(Data){
+    console.log(Data)
     cardsprint.innerHTML=``
-    for ( objects of nameArray[0].data) {
+    for ( objects of Data.data) {
     const response = await fetch(`${URL2}${objects}`);
     const cardData = await response.json();
+    console.log(cardData)
     if ('card_faces' in cardData){
             const cards = document.createElement('div')
             cards.classList.add('card')
+            cards.setAttribute("id", cardData.id);
             cards.innerHTML=`<div class="doublefacedcard">
                 <img class="frontFace" src=${cardData.card_faces[0].image_uris.normal}>
                 <img class="backSide" src=${cardData.card_faces[1].image_uris.normal}>
             </div><button class="flipbtn">flip</button>`
             cardsprint.appendChild(cards)
+
         } else {
             const cards = document.createElement('div')
             cards.classList.add('card')
+            cards.setAttribute("id", cardData.id);
             cards.innerHTML=`<img src=${cardData.image_uris.normal}>`
             cardsprint.appendChild(cards)
         }
     }
+    cardinfo = document.querySelectorAll('.card')
+    cardinfo.forEach(info=>{
+        info.addEventListener('click', function(){
+            console.log('click')
+            console.log(this.id)
+        })
+    })
     setflip()
-    clearArray()
 }
 
 function setflip(){
@@ -50,8 +60,4 @@ function setflip(){
         })
     })
 
-}
-
-function clearArray(){
-    nameArray.length = 0
 }
