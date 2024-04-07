@@ -10,6 +10,7 @@ print.addEventListener("click", loadDoc);
 async function loadDoc() {
     const response = await fetch(`${URL1}${send.value}`);
     const jsonData = await response.json();
+    console.log(jsonData)
     generateimg(jsonData)
 }
 async function generateimg(Data){
@@ -17,14 +18,20 @@ async function generateimg(Data){
     for ( objects of Data.data) {
     const response = await fetch(`${URL2}${objects}`);
     const cardData = await response.json();
+    console.log(cardData)
     if ('card_faces' in cardData){
             const cards = document.createElement('div')
             cards.classList.add('card')
             cards.setAttribute("id", cardData.id);
-            cards.innerHTML=`<div class="doublefacedcard">
-                <img class="frontFace" src=${cardData.card_faces[0].image_uris.normal}>
-                <img class="backSide" src=${cardData.card_faces[1].image_uris.normal}>
-            </div><button class="flipbtn">flip</button>`
+            if (cardData.layout == "split"){
+                cards.innerHTML=`<img src=${cardData.image_uris.normal}>`
+            }else{
+                cards.innerHTML=`<div class="doublefacedcard">
+                    <img class="frontFace" src=${cardData.card_faces[0].image_uris.normal}>
+                    <img class="backSide" src=${cardData.card_faces[1].image_uris.normal}>
+                </div><button class="flipbtn">flip</button>`  
+            }
+
             cardsprint.appendChild(cards)
 
         } else {
